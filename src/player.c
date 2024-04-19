@@ -17,25 +17,35 @@ Entity* createPlayer(Position start_pos) {
 
 // Função que aumenta ou diminui as variaveis x e y da posição do jogador
 void handleInput(int input) {
+	Position newPos = { player->pos.y, player->pos.x };
 	switch(input) {
 		// Cima
 		case 'w':
-			player->pos.y--;
+			newPos.y--;
 			break;
 		// Baixo
 		case 's':
-			player->pos.y++;
+			newPos.y++;
 			break;
 		// Esquerda
 		case 'a':
-			player->pos.x--;
+			newPos.x--;
 			break;
 		// Direita
 		case 'd':
-			player->pos.x++;
+			newPos.x++;
 			break;
 		// Se nenhum
 		default:
 			break;
+	}
+	
+	movePlayer(newPos);
+}
+
+void movePlayer(Position newPos) {
+	if (map[newPos.y][newPos.x].walkable) {
+		player->pos.y = newPos.y;
+		player->pos.x = newPos.x;
 	}
 }
